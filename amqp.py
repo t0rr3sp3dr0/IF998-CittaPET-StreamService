@@ -6,6 +6,7 @@ from mongoengine.queryset.visitor import Q
 
 from proto.event_pb2 import BusEvent, UTM
 
+
 def connect_amqp():
     credentials = pika.PlainCredentials(
         os.environ.get('QUEUE_USER', 'guest'),
@@ -21,11 +22,11 @@ def connect_amqp():
     )
     return connection
 
+
 def from_mongo_to_proto(event):
-    u = UTM()
-    u.easting = event.coordinate.easting
-    u.northing = event.coordinate.northing
     e = BusEvent()
     e.unit = event.unit
     e.timestamp = event.timestamp.isoformat()
+    e.coordinate.easting = event.coordinate.easting
+    e.coordinate.northing = event.coordinate.northing
     return e.SerializeToString()

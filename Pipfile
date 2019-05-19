@@ -1,0 +1,17 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+grpcio = "==1.20.1"
+mongoengine = "==0.17.0"
+pika = "==1.0.1"
+pymongo = "==3.8.0"
+six = "==1.12.0"
+protobuf = "==3.7.1"
+
+[requires]
+python_version = "3.7"

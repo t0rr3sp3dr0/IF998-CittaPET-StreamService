@@ -9,7 +9,8 @@ from db import BusEvent, connect_db, find_events
 from amqp import connect_amqp, from_mongo_to_proto
 
 FILES = [
-    '200118_240118'
+    'input',
+    '200118_240118',
 ]
 
 def main():
@@ -25,7 +26,7 @@ def main():
 
     connection = connect_amqp()
     channel = connection.channel()
-    channel.queue_declare(queue='events')
+    channel.queue_declare(queue='events', durable=True)
 
     start = datetime.strptime('2018-01-20 00:05:14.557000', '%Y-%m-%d %H:%M:%S.%f')
     window = os.environ.get('SEARCH_WINDOW', 30)
@@ -37,7 +38,7 @@ def main():
         end = start + timedelta(seconds=window)
         for e in events:
             channel.basic_publish(exchange='', routing_key='events', body=e)
-        sleep(os.environ.get('SEND_INTERVAL', 5))
+        sleep(os.environ.get('SEND_INTERVAL', 0))
     connection.close()
 
 if __name__ == "__main__":
