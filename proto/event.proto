@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package proto;
+
+message BusEvent {
+    string unit = 1;
+    string timestamp = 2;
+    UTM coordinate = 3;
+}
+
+message UTM {
+    double easting = 1;
+    double northing = 2;
+}
