@@ -1,0 +1,5 @@
+grpcio==1.20.1
+mongoengine==0.17.0
+pika==1.0.1
+pymongo==3.8.0
+six==1.12.0
